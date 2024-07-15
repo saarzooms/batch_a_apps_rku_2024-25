@@ -1,3 +1,4 @@
+import 'package:e_com_app/screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -63,6 +64,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     'Button pressed ${unameController.text} ${pwdController.text} ');
                 if (unameController.text == pwdController.text) {
                   print('Valid user');
+                  //navigate to dashboard
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DashboardScreen(),
+                    ),
+                  );
                 } else {
                   print('Invalid credentials');
                 }
