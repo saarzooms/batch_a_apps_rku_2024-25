@@ -1,5 +1,6 @@
 import 'package:e_com_app/screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -59,11 +60,13 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: isObscure,
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 print(
                     'Button pressed ${unameController.text} ${pwdController.text} ');
                 if (unameController.text == pwdController.text) {
                   print('Valid user');
+                  final SharedPreferences prefs = await SharedPreferences.getInstance();
+                  await prefs.setString('user', unameController.text);
                   //navigate to dashboard
                   Navigator.push(
                     context,
