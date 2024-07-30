@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class TodoScreen extends StatefulWidget {
@@ -8,6 +10,7 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
+  String selId = "";
   TextEditingController txtTitle = TextEditingController();
   List todos = [
     {'id': 1, 'title': 'Buy books', 'isCompleted': false}
@@ -37,11 +40,24 @@ class _TodoScreenState extends State<TodoScreen> {
                   onPressed: () {
                     //to add or update logic into list
                     if (txtTitle.text.isNotEmpty) {
-                      todos.add({
-                        'id': DateTime.now().toIso8601String(),
-                        'title': txtTitle.text,
-                        'isCompleted': false
-                      });
+                      if (selId == "") {
+                        todos.add({
+                          'id': DateTime.now().toIso8601String(),
+                          'title': txtTitle.text,
+                          'isCompleted': false
+                        });
+                      } else {
+                        //update operation
+                        int index = todos.indexWhere((element) =>
+                            element['id'].toString() == selId.toString());
+                        log(selId + " " + index.toString());
+                        var todo = todos[index];
+                        todo['title'] = txtTitle.text;
+                        todos.removeAt(index);
+                        todos.insert(index, todo);
+                        selId = "";
+                      }
+
                       //clear textfield
                       txtTitle.clear();
                       setState(() {});
@@ -79,6 +95,9 @@ class _TodoScreenState extends State<TodoScreen> {
                             IconButton(
                               onPressed: () {
                                 txtTitle.text = todo['title'];
+                                selId = todo['id'].toString();
+                                log(selId);
+                                setState(() {});
                               },
                               icon: Icon(Icons.edit),
                             ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +12,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   String user = "";
+
   @override
   void initState() {
     super.initState();
@@ -17,9 +20,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   void loadData() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    user = await prefs.getString('user') ?? "";
-    setState(() {});
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // user = await prefs.getString('user') ?? "";
+    // setState(() {});
   }
 
   @override
@@ -28,8 +31,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Text('Dashboard'),
       ),
-      body: Center(
-        child: Text('Welcome ${user}'),
+      body: Column(
+        children: [
+          // Text('Welcome ${user}'),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) => ListTile(
+                title: Text('Hi '),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
