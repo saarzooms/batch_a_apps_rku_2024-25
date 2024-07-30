@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'cart_screen.dart';
 import 'dashboard_screen.dart';
 import 'product_screen.dart';
+import 'splash_screen.dart';
 
 class MasterScreen extends StatefulWidget {
   const MasterScreen({super.key});
@@ -20,13 +21,19 @@ class _MasterScreenState extends State<MasterScreen> {
     DashboardScreen(),
     ProductScreen(),
     CartScreen(),
+    CartScreen(),
+    SplashScreen(),
   ];
+  bool isCenter = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currIndex],
+      body: isCenter ? pages[4] : pages[currIndex],
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          isCenter = true;
+          setState(() {});
+        },
         child: Icon(Icons.add),
         //params
       ),
