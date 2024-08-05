@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:todo_list/services/api_call.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -15,6 +16,12 @@ class _TodoScreenState extends State<TodoScreen> {
   List todos = [
     {'id': 1, 'title': 'Buy books', 'isCompleted': false}
   ];
+  @override
+  void initState() {
+    super.initState();
+    APICall.fetchTodos();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
