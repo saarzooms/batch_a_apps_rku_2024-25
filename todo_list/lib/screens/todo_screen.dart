@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:todo_list/services/api_call.dart';
 
+import '../models/todo.dart';
+
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
 
@@ -13,13 +15,17 @@ class TodoScreen extends StatefulWidget {
 class _TodoScreenState extends State<TodoScreen> {
   String selId = "";
   TextEditingController txtTitle = TextEditingController();
-  List todos = [
-    {'id': 1, 'title': 'Buy books', 'isCompleted': false}
+  List<Todo> todos = [
+    // {'id': 1, 'title': 'Buy books', 'isCompleted': false}
   ];
   @override
   void initState() {
     super.initState();
-    APICall.fetchTodos();
+    fetchData();
+  }
+
+  fetchData() {
+    todos = APICall.fetchTodos();
   }
 
   @override
@@ -48,18 +54,18 @@ class _TodoScreenState extends State<TodoScreen> {
                     //to add or update logic into list
                     if (txtTitle.text.isNotEmpty) {
                       if (selId == "") {
-                        todos.add({
-                          'id': DateTime.now().toIso8601String(),
-                          'title': txtTitle.text,
-                          'isCompleted': false
-                        });
+                        // todos.add({
+                        //   'id': DateTime.now().toIso8601String(),
+                        //   'title': txtTitle.text,
+                        //   'isCompleted': false
+                        // });
                       } else {
                         //update operation
                         int index = todos.indexWhere((element) =>
-                            element['id'].toString() == selId.toString());
+                            element.id.toString() == selId.toString());
                         log(selId + " " + index.toString());
                         var todo = todos[index];
-                        todo['title'] = txtTitle.text;
+                        todo.task = txtTitle.text;
                         todos.removeAt(index);
                         todos.insert(index, todo);
                         selId = "";
@@ -78,31 +84,30 @@ class _TodoScreenState extends State<TodoScreen> {
               child: ListView.builder(
                 itemCount: todos.length,
                 itemBuilder: (context, index) {
-                  var todo = todos[index];
+                  Todo todo = todos[index];
                   return Card(
                     child: CheckboxListTile(
                       controlAffinity: ListTileControlAffinity.leading,
-                      value: todo['isCompleted'],
+                      value: todo.completed,
                       onChanged: (v) {
-                        todo['isCompleted'] = v;
+                        todo.completed = v;
                         setState(() {});
                       },
-                      title: Text('${todo['title']} (${todo['id']})',
+                      title: Text('${todo.task} (${todo.id})',
                           style: TextStyle(
-                              decoration: todo['isCompleted']
+                              decoration: todo.completed!
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
-                              color: todo['isCompleted']
-                                  ? Colors.red
-                                  : Colors.black)),
+                              color:
+                                  todo.completed! ? Colors.red : Colors.black)),
                       secondary: SizedBox(
                         width: 100,
                         child: Row(
                           children: [
                             IconButton(
                               onPressed: () {
-                                txtTitle.text = todo['title'];
-                                selId = todo['id'].toString();
+                                txtTitle.text = todo.task!;
+                                selId = todo.id.toString();
                                 log(selId);
                                 setState(() {});
                               },
