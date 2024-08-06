@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import '../models/todo.dart';
 
 class APICall {
   static fetchTodos() async {
@@ -9,7 +10,10 @@ class APICall {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+      var res = await response.stream.bytesToString();
+      print(res);
+      var todos = todoFromJson(res);
+      print(todos.length);
     } else {
       print('error in response ${response.reasonPhrase}');
     }

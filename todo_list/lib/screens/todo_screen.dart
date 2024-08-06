@@ -96,7 +96,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                   ? Colors.red
                                   : Colors.black)),
                       secondary: SizedBox(
-                        width: 80,
+                        width: 100,
                         child: Row(
                           children: [
                             IconButton(
