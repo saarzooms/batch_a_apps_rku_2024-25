@@ -13,33 +13,33 @@ class CounterScreen extends StatelessWidget {
         title: Text('Counter Screen'),
       ),
       body: Center(
-        child: Obx(() {
-          return Column(
-            children: [
-              Text(
-                'Counter: 0',
-                style: TextStyle(fontSize: 40),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Inc'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Reset'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Dec'),
-                  ),
-                ],
-              ),
-            ],
-          );
-        }),
+        child: Obx(() => Column(
+              children: [
+                Text(
+                  'Counter: ${c.count}',
+                  style: TextStyle(fontSize: 40),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        c.increment();
+                      },
+                      child: Text('Inc'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Reset'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Dec'),
+                    ),
+                  ],
+                ),
+              ],
+            )),
       ),
     );
   }
