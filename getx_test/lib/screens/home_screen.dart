@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx_test/screens/product_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -6,8 +8,18 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Home Screen')),
       body: Center(
-        child: Text('Home Screen'),
+        child: Column(
+          children: [
+            Text('Home Screen'),
+            ElevatedButton(
+                onPressed: () {
+                  Get.to(() => ProductScreen());
+                },
+                child: Text('Open Product'))
+          ],
+        ),
       ),
     );
   }

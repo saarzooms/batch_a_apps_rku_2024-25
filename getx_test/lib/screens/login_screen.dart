@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -17,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Login Screen')),
       body: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Column(
@@ -63,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     'Button pressed ${unameController.text} ${pwdController.text} ');
                 if (unameController.text == pwdController.text) {
                   print('Valid user');
+                  Get.off(() => HomeScreen());
                 } else {
                   print('Invalid credentials');
                 }
