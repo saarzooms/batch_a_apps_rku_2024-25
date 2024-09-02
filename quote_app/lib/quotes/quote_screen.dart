@@ -19,16 +19,20 @@ class QuoteScreen extends StatelessWidget {
                 children: [
                   Text(
                     controller.quotes[0].q,
+                    style: TextStyle(fontSize: 40),
                   ),
                   Text(
                     controller.quotes[0].a,
+                    style: TextStyle(fontSize: 20),
                   ),
                 ],
               )
             : Center(child: CircularProgressIndicator());
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          controller.fetchDetails();
+        },
         child: Icon(Icons.refresh),
       ),
     );
