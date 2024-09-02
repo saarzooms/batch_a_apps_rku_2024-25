@@ -5,7 +5,14 @@ import 'package:quote_app/quotes/quote_service.dart';
 class QuoteController extends GetxController {
   RxList<Quote> quotes = RxList.empty();
 
-  fetchDetails() {
-    QuoteService.fetchQuote();
+  @override
+  void onInit() {
+    super.onInit();
+    fetchDetails();
+  }
+
+  fetchDetails() async {
+    quotes.clear();
+    quotes.addAll(await QuoteService.fetchQuote());
   }
 }
